@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id='app'>
+        <my-card :goods-data="goodsList[0]"></my-card>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="GoodsCard.js"></script>
+    <script src="GoodsModel.js"></script>
+
+    <script>
+        const instance = new Vue({
+            el: '#app',
+            components: {
+                MyCard,
+            },
+            data: {
+                 goods: getInstance('name', 'price', 'address', 'likeCount', 'image'),
+                 goodsList:[],
+                //goods: GoodsSample
+            },
+            created: async function() {
+                let goodsDatas = [];   
+
+                await axios.get('http://localhost:3000/goods')
+                .then((response) => {
+                    response.data.map((goods, index) => {
+                        //
+                        goodsDatas.push(getInstance(goods.name, goods.price, goods.address, goods.likeCount, goods.image));
+                    });
+                });
+                this.goodsList = goodsDatas;
+            },
+        });
+    </script>
+</body>
+
+</html>
