@@ -1,0 +1,14 @@
+.bg-content {
+    background-image: url('https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg');
+    background-position: center;
+    background-size: cover;
+  }
+  .minHeightExample{
+    min-height:calc(100vh - 136px);
+  }
+  .login-box {
+    max-width: 500px;
+  }
+  .login-box .sign-title {
+    display: block;
+  }

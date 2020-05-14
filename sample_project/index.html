@@ -5,12 +5,14 @@
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
     <link href="./calousels.css" rel="stylesheet">
+    <link href="./signin.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 
 <body>
     <div id='app'>
-        <goods-header v-on:route-page="routePage"></goods-header>
+        <goods-header v-on:route-page="routePage" :logged-member="loggedMember"></goods-header>
+        <br/><br/><br/>
         <template v-if="page === 'MainPage'">
             <card-container :goods-datas="goodsList">
                 <template v-slot:calousels>
@@ -22,10 +24,10 @@
             <goods-registration></goods-registration>
         </template>
         <template v-if="page === 'SignIn'">
-
+            <sign-in v-on:route-page="routePage"></sign-in>
         </template>
         <template v-if="page === 'SignUp'">
-
+            <sign-up v-on:route-page="routePage"></sign-up>
         </template>
     </div>
 
@@ -37,6 +39,9 @@
     <script src="GoodsHeader.js"></script>
     <script src="CardContainer.js"></script>
     <script src="Calousels.js"></script>
+    <script src="SignIn.js"></script>
+    <script src="SignUp.js"></script>
+    <script src="MemberModel.js"></script>
     <script src="../simple_goods_form/GoodsRegistForm.js"></script>
     <script src="../simple_card/GoodsCard.js"></script>
     <script src="../simple_card/GoodsModel.js"></script>
@@ -52,15 +57,21 @@
                 GoodsHeader,
                 Calousels,
                 GoodsRegistration,
+                SignIn,
+                SignUp,
             },
             data: {
                 page: 'MainPage',
                 goodsList: [],
+                loggedMember:'',
             },
             methods: {
                 routePage: function (pageName) {
                     this.page = pageName[0];
                 }
+            },
+            updated: function() {
+                this.loggedMember = ("; "+document.cookie).split("; loggedMember=").pop().split(";").shift();
             }
             ,
             created: async function () {
