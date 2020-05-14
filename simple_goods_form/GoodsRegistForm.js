@@ -1,4 +1,4 @@
-const template = 
+const goodsRegistFormTemplate = 
 `
 <v-container data-app>
     <h3 class="title content-title">상품 등록 편집</h3>
@@ -49,7 +49,6 @@ const template =
             name="상품설명"
             label="상품설명"
             v-model="goodsData.description"
-            :rules="rules"
             :value="value"
           ></v-textarea>
         </v-col>
@@ -94,7 +93,7 @@ const datas = {
 }
 
 const GoodsRegistration = Vue.component('goods-registration', {
-    template: template,
+    template: goodsRegistFormTemplate,
     data: function() {
         return datas;
     },

@@ -1,4 +1,4 @@
-const template = 
+const goodsCardTemplate = 
 `
 <v-card
     :loading="loading"
@@ -44,7 +44,7 @@ const data = {}
 
 const MyCard = Vue.component('my-card',{
     props:["goodsData"],
-    template: template,
+    template: goodsCardTemplate,
     data: function() {
         return data;
     },

@@ -5,8 +5,11 @@ const goodsHeaderTemplate =
         app
         color="grey lighten-5"
         >
-        <v-toolbar-title color="deep-purple">나비마켓</v-toolbar-title>
+        <v-toolbar-title color="deep-purple" @click="routeMain">나비마켓</v-toolbar-title>
         <div class="d-flex align-center"></div>
+
+    
+
 
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
@@ -23,7 +26,7 @@ const goodsHeaderTemplate =
             <v-icon>mdi-basket-outline</v-icon>
         </v-btn>
         <v-btn text>
-            <v-icon>mdi-account-outline</v-icon>
+            <v-icon @click="routeRegistration">mdi-account-outline</v-icon>
         </v-btn>
     </v-app-bar>
 </div>
@@ -31,4 +34,13 @@ const goodsHeaderTemplate =
 
 const GoodsHeader = Vue.component('goods-header',{
     template: goodsHeaderTemplate,
+    methods: {
+        routeRegistration: function() {
+            this.$emit('route-page',['RegistraionPage']);
+        },
+        routeMain: function(event) {
+            this.$emit('route-page',['MainPage']);
+        }
+    }
 })
+
