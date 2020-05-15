@@ -45,6 +45,7 @@
 <script>
 import axios from 'axios';
 import GoodsModel from '../models/GoodsModel';
+import store from '../store/GoodsStore';
 
 const datas = {
     goodsData: {
@@ -78,6 +79,11 @@ export default {
         //
         const goodsData = new GoodsModel(this.goodsData.name, this.goodsData.price, this.goodsData.address, this.goodsData.isPurchase, this.goodsData.category, this.goodsData.description, 0, this.goodsData.image);
         axios.post('http://localhost:3000/goods',goodsData);
+      }
+    },
+    computed: {
+      getGoodsList: function(){
+        return store.state.goodsList;
       }
     }
 };

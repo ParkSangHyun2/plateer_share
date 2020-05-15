@@ -4,7 +4,7 @@
     <v-container>
       <h3 class="title content-title">최근 등록 상품</h3>
       <v-row no-gutters>
-        <template v-for="goods in goodsList">
+        <template v-for="goods in getGoodsList">
           <v-col cols="12" sm="4" :key="goods.id">
             <MyCard :goods-data="goods"></MyCard>
           </v-col>
@@ -25,40 +25,23 @@
 import MyCard from "../MyCard";
 import GoodsModel from '../../models/GoodsModel';
 import axios from 'axios';
+import store from '../../store/GoodsStore';
 
 export default {
   props: {
     goodsDatas: Array
   },
-  data: function() {
-      return {
-          goodsList:[],
-      }
-  },
   components: {
     MyCard
   },
-  created: async function() {
-    let goodsDatas = [];
-
-    await axios.get("http://localhost:3000/goods").then(response => {
-      response.data.map((goods) => {
-        //
-        goodsDatas.push(
-          new GoodsModel(
-            goods.name,
-            goods.price,
-            goods.address,
-            goods.isPurchase,
-            goods.category,
-            goods.description,
-            goods.likeCount,
-            goods.image
-          )
-        );
-      });
-    });
-    this.goodsList = goodsDatas;
+  computed: {
+    getGoodsList: function(){
+      return store.state.goodsList;
+    }
+  }
+  ,
+  created: function() {
+    store.dispatch('loadGoodsDatas');
   }
 };
 </script>
