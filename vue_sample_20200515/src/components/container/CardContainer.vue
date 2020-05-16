@@ -23,8 +23,6 @@
 
 <script>
 import MyCard from "../MyCard";
-import GoodsModel from '../../models/GoodsModel';
-import axios from 'axios';
 import store from '../../store/GoodsStore';
 
 export default {

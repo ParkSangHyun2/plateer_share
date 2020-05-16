@@ -1,7 +1,11 @@
+import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import GoodsModel from '../models/GoodsModel';
 
-const GoodsStore = Vuex.Store({
+Vue.use(Vuex);
+
+const GoodsStore = new Vuex.Store({
     //
     state: {
         goodsList: [],
@@ -12,7 +16,7 @@ const GoodsStore = Vuex.Store({
         }
     },
     actions: {
-        loadGoodsDatas: function (context) {
+        loadGoodsDatas: async function (context) {
             let goodsList = await axios.get("http://localhost:3000/goods").then(response => {
                 let goodsDatas = [];
 
