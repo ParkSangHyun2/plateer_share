@@ -42,7 +42,7 @@
 
 <script>
 import MemberModel from '../models/MemberModel';
-import store from '../store/MemberStore';
+import store from '../store/MemberModule';
 
 const signUpDatas = {
     email:'',
@@ -64,7 +64,7 @@ export default {
             const member = new MemberModel(this.email, this.password, this.location);
 
             store.dispatch('signUp', member);
-            
+
             this.$emit('route-page', ['MainPage']);
         }
     }

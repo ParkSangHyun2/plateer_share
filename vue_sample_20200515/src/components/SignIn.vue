@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import store from '../store/MemberStore';
 import MemberModel from '../models/MemberModel';
+import {mapActions} from 'vuex';
 
 const singInDatas = {
   email:'',
@@ -48,11 +48,15 @@ export default {
       return singInDatas;
     },
     methods:{
+      ...mapActions('member',{
+        runSignIn: 'signIn',
+      }),
       login: async function() {
         //
         let loggedMember = new MemberModel(this.email, this.password, '');
 
-        store.dispatch('signIn', loggedMember);
+        // this.$store.dispatch('member/signIn', loggedMember);
+        this.signIn(null, loggedMember);
       }
     }
 }

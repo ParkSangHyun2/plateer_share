@@ -4,7 +4,7 @@
     <v-container>
       <h3 class="title content-title">최근 등록 상품</h3>
       <v-row no-gutters>
-        <template v-for="goods in getGoodsList">
+        <template v-for="goods in goodsList">
           <v-col cols="12" sm="4" :key="goods.id">
             <MyCard :goods-data="goods"></MyCard>
           </v-col>
@@ -23,7 +23,7 @@
 
 <script>
 import MyCard from "../MyCard";
-import store from '../../store/GoodsStore';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   props: {
@@ -33,13 +33,17 @@ export default {
     MyCard
   },
   computed: {
-    getGoodsList: function(){
-      return store.state.goodsList;
-    }
-  }
-  ,
+    // getGoodsList: function(){
+    //   return this.$store.state.goods.goodsList;
+    // },
+    ...mapState('goods',['goodsList']),
+  },
+  methods: {
+    ...mapActions('goods',['loadGoodsDatas']),
+  },
   created: function() {
-    store.dispatch('loadGoodsDatas');
+    this.loadGoodsDatas();
+    //store.dispatch('loadGoodsDatas');
   }
 };
 </script>

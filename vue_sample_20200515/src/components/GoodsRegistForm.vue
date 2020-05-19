@@ -47,7 +47,7 @@
 <script>
 import axios from 'axios';
 import GoodsModel from '../models/GoodsModel';
-import store from '../store/GoodsStore';
+import store from '../store/GoodsStoreModule';
 import sampleStore from '../store/SampleStore';
 
 const datas = {

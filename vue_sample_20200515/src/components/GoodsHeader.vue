@@ -34,18 +34,18 @@
             <v-icon @click="routeRegistration">mdi-account-outline</v-icon>
         </v-btn>
     </v-app-bar>
-</div>    
+</div>
 </template>
 
 <script>
-import store from '../store/MemberStore';
+import store from '../store/MemberModule';
 
 export default {
     computed: {
         loggedMemberEmail: function() {
             return store.state.loggedMemberEmail;
         }
-        
+
     },
     methods: {
         routeRegistration: function () {
