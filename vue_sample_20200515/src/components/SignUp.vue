@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import MemberModel from '../models/MemberModel';
+import store from '../store/MemberStore';
 
 const signUpDatas = {
     email:'',
@@ -61,10 +61,10 @@ export default {
                 alert('모두 입력해주세요.');
                 return;
             }
-
             const member = new MemberModel(this.email, this.password, this.location);
-            axios.post('http://localhost:3000/member', member);
 
+            store.dispatch('signUp', member);
+            
             this.$emit('route-page', ['MainPage']);
         }
     }

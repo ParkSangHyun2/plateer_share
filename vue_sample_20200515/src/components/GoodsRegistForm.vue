@@ -40,12 +40,15 @@
         </v-row>
       </div>
     </v-container>
+    <h1>{{getSampleData}}</h1>
   </div>
 </template>
+
 <script>
 import axios from 'axios';
 import GoodsModel from '../models/GoodsModel';
 import store from '../store/GoodsStore';
+import sampleStore from '../store/SampleStore';
 
 const datas = {
     goodsData: {
@@ -81,9 +84,15 @@ export default {
         axios.post('http://localhost:3000/goods',goodsData);
       }
     },
+    created: function(){
+
+    },
     computed: {
       getGoodsList: function(){
         return store.state.goodsList;
+      },
+      getSampleData: function() {
+        return sampleStore.state.data;
       }
     }
 };

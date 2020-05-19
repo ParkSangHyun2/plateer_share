@@ -9,8 +9,14 @@
     <br />
     <br />
     <br />
+    <router-view>
+
+    </router-view>
+    <h1>{{sampleData}}</h1>
+    <button @click="testSample">BUTTON</button>
+    <!--
     <template v-if="page === 'MainPage'">
-      <CardContainer :goods-datas="goodsList">
+      <CardContainer>
         <template v-slot:calousels>
           <Calousels></Calousels>
         </template>
@@ -25,42 +31,47 @@
     <template v-if="page === 'SignUp'">
       <SignUp v-on:route-page="routePage"></SignUp>
     </template>
+    -->
   </div>
 </template>
 
 <script>
-import CardContainer from "./components/container/CardContainer";
 import GoodsHeader from "./components/GoodsHeader";
-import GoodsRegistForm from "./components/GoodsRegistForm";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
-import Calousels from "./components/Caloucsels";
+import store from './store/SampleStore';
+//import mapState from 'vuex';
 
 export default {
   //
   name: "App",
   components: {
-    CardContainer,
-    GoodsHeader,
-    Calousels,
-    GoodsRegistForm,
-    SignIn,
-    SignUp
+    GoodsHeader
   },
   data: function() {
     return {
       page: "MainPage",
       goodsList: [],
       loggedMember: ""
+    };
+  },
+  computed: {
+    sampleData: function() {
+      return store.state.data;
     }
   },
   methods: {
+    testSample () {
+      store.state.data = 'changeSomething';
+    },
     routePage: function(pageName) {
       this.page = pageName[0];
     }
   },
   updated: function() {
-    this.loggedMember = ("; " + document.cookie).split("; loggedMember=").pop().split(";").shift();
+    this.loggedMember = ("; " + document.cookie)
+      .split("; loggedMember=")
+      .pop()
+      .split(";")
+      .shift();
     console.log(this.loggedMember);
   }
 };

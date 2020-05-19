@@ -8,12 +8,17 @@ Vue.use(Vuex);
 const GoodsStore = new Vuex.Store({
     //
     state: {
-        goodsList: [],
+        goodsList: {},
     },
     mutations: {
         setGoodsList: function(state, goodsList) {
             state.goodsList = goodsList;
         }
+    },
+    getters: {
+        someData: (state, getters) => {
+          return state.data + getters.anotherData;
+        },
     },
     actions: {
         loadGoodsDatas: async function (context) {

@@ -18,12 +18,12 @@
             single-line
         ></v-text-field>
 
-        <template v-if="loggedMember===''">
+        <template v-if="loggedMemberEmail===''">
             <v-btn text @click="routeSignUp">SignUp</v-btn>
             <v-btn text @click="routeSignIn">SignIn</v-btn>
         </template>
         <template v-else>
-            <v-btn text>{{loggedMember}}</v-btn>
+            <v-btn text>{{loggedMemberEmail}}</v-btn>
             <v-btn text @click="logout">LogOut</v-btn>
         </template>
 
@@ -38,9 +38,14 @@
 </template>
 
 <script>
+import store from '../store/MemberStore';
+
 export default {
-    props: {
-        loggedMember: String,
+    computed: {
+        loggedMemberEmail: function() {
+            return store.state.loggedMemberEmail;
+        }
+        
     },
     methods: {
         routeRegistration: function () {
@@ -56,8 +61,7 @@ export default {
             this.$emit('route-page', ['SignIn']);
         },
         logout: function () {
-            document.cookie = 'loggedMember=;';
-            location.refresh();
+            store.dispatch('logout');
         }
     }
 }

@@ -35,7 +35,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import store from '../store/MemberStore';
+import MemberModel from '../models/MemberModel';
 
 const singInDatas = {
   email:'',
@@ -49,17 +50,9 @@ export default {
     methods:{
       login: async function() {
         //
-        let foundMember = {};
+        let loggedMember = new MemberModel(this.email, this.password, '');
 
-        await axios.get(`http://localhost:3000/member?email=${this.email}&password=${this.password}`)
-        .then((response) => {
-          foundMember = response.data;
-        });
-
-        console.log(foundMember[0]);
-        if(foundMember[0].email === this.email){
-          document.cookie = `loggedMember=${this.email};`
-        }
+        store.dispatch('signIn', loggedMember);
       }
     }
 }
